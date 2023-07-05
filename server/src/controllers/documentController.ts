@@ -14,7 +14,7 @@ class DocumentController {
     this.router.get("/documents", this.searchDocuments);
   }
 
-  private addDocument = async (req: Request, res: Response): Promise<void> => {
+  public addDocument = async (req: Request, res: Response): Promise<void> => {
     try {
       const { name, content, author, date } = req.body;
 
@@ -34,7 +34,7 @@ class DocumentController {
     }
   };
 
-  private searchDocuments = async (
+  public searchDocuments = async (
     req: Request,
     res: Response
   ): Promise<void> => {
@@ -48,6 +48,11 @@ class DocumentController {
           { author: { $regex: query, $options: "i" } },
         ],
       });
+
+      if (!documents.length) {
+        res.status(200).json({ msg: "No results found" });
+        return;
+      }
 
       res.status(200).json(documents);
     } catch (error) {
