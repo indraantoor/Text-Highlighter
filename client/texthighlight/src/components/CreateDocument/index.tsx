@@ -1,65 +1,61 @@
-import { useState } from "react";
+import React from "react";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 import { useCreateDocument } from "../../hooks/query/useCreateDocument";
 
+const schema = yup.object().shape({
+  author: yup.string().required("Author is required"),
+  name: yup.string().required("Title is required"),
+  content: yup.string().required("Content is required"),
+});
+
 const CreateDocument = () => {
-  const [author, setAuthor] = useState("");
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
 
-  const { mutate } = useCreateDocument();
+  const { mutate, isLoading, isError, error } = useCreateDocument();
 
-  const handleAuthorChange = (event: any) => {
-    setAuthor(event.target.value);
-  };
-
-  const handleTitleChange = (event: any) => {
-    setTitle(event.target.value);
-  };
-
-  const handleContentChange = (event: any) => {
-    setContent(event.target.value);
-  };
-
-  const handleSubmit = (event: any) => {
-    event.preventDefault();
+  const onSubmit = (data: any) => {
     // Handle form submission here
-    // You can access the form values using the `author`, `title`, and `content` variables
-    const data = {
-      name: title,
-      author,
-      content,
-    };
+    // Access the form values from the `data` object
 
     mutate(data);
+    reset(); // Reset the form after submission
   };
 
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (isError) {
+    const errorDetails: any = error;
+    const errorMessage: string = errorDetails?.response?.data?.msg;
+    return <div>{errorMessage}</div>;
+  }
+
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <div>
         <label htmlFor="author">Author:</label>
-        <input
-          type="text"
-          id="author"
-          value={author}
-          onChange={handleAuthorChange}
-        />
+        <input type="text" id="author" {...register("author")} />
+        {errors.author && <small>{errors.author.message}</small>}
       </div>
       <div>
-        <label htmlFor="title">Title:</label>
-        <input
-          type="text"
-          id="title"
-          value={title}
-          onChange={handleTitleChange}
-        />
+        <label htmlFor="name">Title:</label>
+        <input type="text" id="name" {...register("name")} />
+        {errors.name && <small>{errors.name.message}</small>}
       </div>
       <div>
         <label htmlFor="content">Content:</label>
-        <textarea
-          id="content"
-          value={content}
-          onChange={handleContentChange}
-        ></textarea>
+        <textarea id="content" {...register("content")}></textarea>
+        {errors.content && <small>{errors.content.message}</small>}
       </div>
       <button type="submit">Submit</button>
     </form>

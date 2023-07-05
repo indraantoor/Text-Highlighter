@@ -1,6 +1,10 @@
 import React from "react";
 
 const HighlightText = ({ text, highlightWord }: any) => {
+  if (!highlightWord) {
+    return text;
+  }
+
   const regex = new RegExp(`(${highlightWord})`, "gi");
   const wordsInText = text.split(regex);
   return (
