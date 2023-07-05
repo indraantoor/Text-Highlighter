@@ -1,15 +1,29 @@
-const express = require("express");
-const dotenv = require("dotenv");
+import express, { Application } from "express";
+import mongoose from "mongoose";
+import DocumentController from "./src/controllers/documentController";
 
-dotenv.config();
+const app: Application = express();
+const port: number = 3000;
 
-const app = express();
-const port = process.env.PORT;
+// Middleware
+app.use(express.json());
 
-app.get("/", (req, res) => {
-  res.send("Express");
-});
+// MongoDB connection
+const mongoURI: string = "mongodb://localhost:27017/mydatabase";
+mongoose
+  .connect(mongoURI)
+  .then(() => {
+    console.log("Connected to MongoDB");
+  })
+  .catch((error) => {
+    console.error("MongoDB connection error:", error);
+  });
 
+// Routes
+const documentController: DocumentController = new DocumentController();
+app.use("/", documentController.router);
+
+// Start the server
 app.listen(port, () => {
-  console.log(`[server]: Server is running at http://localhost:${port}`);
+  console.log(`Server is running on port ${port}`);
 });
