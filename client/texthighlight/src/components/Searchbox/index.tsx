@@ -1,5 +1,6 @@
 import { useDocumentsData } from "../../hooks/query/useDocumentsData";
 import { useState } from "react";
+import Document from "../Document/index";
 
 const Searchbox = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -28,6 +29,8 @@ const Searchbox = () => {
     return;
   }
 
+  console.log(data);
+
   return (
     <>
       <form onSubmit={handleSubmit}>
@@ -40,6 +43,18 @@ const Searchbox = () => {
         <button type="submit">Search</button>
       </form>
       <div>{data?.msg}</div>
+      {data?.data && data?.data?.length > 0
+        ? data?.data?.map((document: any) => (
+            <Document
+              key={document.id}
+              title={document.name}
+              author={document.author}
+              date={document.date}
+              content={document.content}
+              searchQuery={searchQuery}
+            />
+          ))
+        : null}
     </>
   );
 };

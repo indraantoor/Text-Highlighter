@@ -4,7 +4,7 @@ import axios from "axios";
 async function fetchDocuments(searchQuery: string) {
   const { data } = await axios.get("http://localhost:2302", {
     params: {
-      querys: searchQuery,
+      query: searchQuery,
     },
   });
   return data;
