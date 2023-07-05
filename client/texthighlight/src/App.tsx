@@ -1,11 +1,12 @@
 import Searchbox from "./components/Searchbox";
-import Document from "./components/Document";
+import CreateDocument from "./components/CreateDocument";
 
 function App() {
   return (
     <div className="App">
       <Searchbox />
       {/* <Document /> */}
+      <CreateDocument />
     </div>
   );
 }
