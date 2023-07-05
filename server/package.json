@@ -10,13 +10,13 @@
     "nodemon": "^2.0.22",
     "typescript": "^5.1.6"
   },
-  "name": "server",
+  "name": "index",
   "version": "1.0.0",
-  "main": "server.ts",
+  "main": "index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server",
-    "dev": "nodemon server"
+    "start": "ts-node index.ts",
+    "dev": "nodemon index"
   },
   "keywords": [],
   "author": "",

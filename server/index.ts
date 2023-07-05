@@ -5,7 +5,7 @@ import documentRoutes from "./src/routes/documentRoutes";
 import { connectDatabase } from "./config/database";
 
 const app: Application = express();
-const port: number = 2301;
+const port: number = 2302;
 
 // Middleware
 app.use(express.json());
