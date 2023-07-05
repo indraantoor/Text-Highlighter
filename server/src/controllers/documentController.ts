@@ -45,18 +45,23 @@ class DocumentController {
         $or: [
           { name: { $regex: query, $options: "i" } },
           { content: { $regex: query, $options: "i" } },
-          { author: { $regex: query, $options: "i" } },
         ],
       });
 
       if (!documents.length) {
-        res.status(200).json({ msg: "No results found", data: [] });
+        res
+          .status(200)
+          .json({ msg: "No results found", data: [], searchQuery: query });
         return;
       }
 
       res
         .status(200)
-        .json({ msg: `${documents.length} Results found`, data: documents });
+        .json({
+          msg: `${documents.length} Results found`,
+          data: documents,
+          searchQuery: query,
+        });
     } catch (error) {
       console.error(error);
       res.status(500).json({ msg: "Server error" });

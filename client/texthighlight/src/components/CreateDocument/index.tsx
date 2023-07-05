@@ -41,23 +41,54 @@ const CreateDocument = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div>
-        <label htmlFor="author">Author:</label>
-        <input type="text" id="author" {...register("author")} />
-        {errors.author && <small>{errors.author.message}</small>}
+    <form onSubmit={handleSubmit(onSubmit)} className="bg-gray-100 p-4">
+      <div className="mb-4">
+        <label htmlFor="author" className="block text-gray-800 font-medium">
+          Author:
+        </label>
+        <input
+          type="text"
+          id="author"
+          {...register("author")}
+          className="border border-gray-300 px-4 py-2 rounded-md w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        {errors.author && (
+          <small className="text-red-500">{errors.author.message}</small>
+        )}
       </div>
-      <div>
-        <label htmlFor="name">Title:</label>
-        <input type="text" id="name" {...register("name")} />
-        {errors.name && <small>{errors.name.message}</small>}
+      <div className="mb-4">
+        <label htmlFor="name" className="block text-gray-800 font-medium">
+          Title:
+        </label>
+        <input
+          type="text"
+          id="name"
+          {...register("name")}
+          className="border border-gray-300 px-4 py-2 rounded-md w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        {errors.name && (
+          <small className="text-red-500">{errors.name.message}</small>
+        )}
       </div>
-      <div>
-        <label htmlFor="content">Content:</label>
-        <textarea id="content" {...register("content")}></textarea>
-        {errors.content && <small>{errors.content.message}</small>}
+      <div className="mb-4">
+        <label htmlFor="content" className="block text-gray-800 font-medium">
+          Content:
+        </label>
+        <textarea
+          id="content"
+          {...register("content")}
+          className="border border-gray-300 px-4 py-2 rounded-md w-full h-32 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"
+        ></textarea>
+        {errors.content && (
+          <small className="text-red-500">{errors.content.message}</small>
+        )}
       </div>
-      <button type="submit">Submit</button>
+      <button
+        type="submit"
+        className="bg-blue-500 text-white px-4 py-2 rounded-md shadow-md"
+      >
+        Submit
+      </button>
     </form>
   );
 };
