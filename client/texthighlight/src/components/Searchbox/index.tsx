@@ -27,7 +27,7 @@ const Searchbox = () => {
     refetch();
   }
 
-  function handleChange(e: ChangeEvent) {
+  function handleChange(e: any) {
     setSearchQuery(e.target.value);
   }
 
