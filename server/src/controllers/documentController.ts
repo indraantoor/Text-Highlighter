@@ -50,14 +50,16 @@ class DocumentController {
       });
 
       if (!documents.length) {
-        res.status(200).json({ msg: "No results found" });
+        res.status(200).json({ msg: "No results found", data: [] });
         return;
       }
 
-      res.status(200).json(documents);
+      res
+        .status(200)
+        .json({ msg: `${documents.length} Results found`, data: documents });
     } catch (error) {
       console.error(error);
-      res.status(500).json({ error: "Server error" });
+      res.status(500).json({ msg: "Server error" });
     }
   };
 }
