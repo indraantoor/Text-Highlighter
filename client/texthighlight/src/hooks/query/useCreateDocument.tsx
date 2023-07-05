@@ -1,11 +1,12 @@
 import { useMutation } from "react-query";
 import axios from "axios";
+import { IFormData } from "../../components/CreateDocument/interfaces/formDetailsInterface";
 
-async function addDocument(documentData: any) {
+async function addDocument(documentData: IFormData) {
   const { data } = await axios.post("http://localhost:2302", documentData);
   return data;
 }
 
 export const useCreateDocument = () => {
-  return useMutation((documentData: any) => addDocument(documentData));
+  return useMutation((documentData: IFormData) => addDocument(documentData));
 };

@@ -1,6 +1,20 @@
 import HighlightText from "../HighlightText/index";
 
-const Document = ({ title, author, date, content, searchQuery }: any) => {
+interface IDocumentProps {
+  title: string;
+  author: string;
+  date: string;
+  content: string;
+  searchQuery: string;
+}
+
+const Document = ({
+  title,
+  author,
+  date,
+  content,
+  searchQuery,
+}: IDocumentProps) => {
   return (
     <div className="bg-white shadow-md rounded-md p-4 mb-2 mt-4">
       <h2 className="text-xl font-semibold mb-2">

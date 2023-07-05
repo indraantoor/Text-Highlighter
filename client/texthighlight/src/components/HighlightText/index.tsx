@@ -1,8 +1,13 @@
 import React from "react";
 
-const HighlightText = ({ text, highlightWord }: any) => {
+interface IHighlightTextProps {
+  text: string;
+  highlightWord: string;
+}
+
+const HighlightText = ({ text, highlightWord }: IHighlightTextProps) => {
   if (!highlightWord) {
-    return text;
+    return <React.Fragment>text</React.Fragment>;
   }
 
   const regex = new RegExp(`(${highlightWord})`, "gi");

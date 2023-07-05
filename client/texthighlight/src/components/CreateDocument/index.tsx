@@ -1,15 +1,10 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
 import { useCreateDocument } from "../../hooks/query/useCreateDocument";
 import Loading from "../Loading";
-
-const schema = yup.object().shape({
-  author: yup.string().required("Author is required"),
-  name: yup.string().required("Title is required"),
-  content: yup.string().required("Content is required"),
-});
+import { schema } from "./validation/formValidationSchema";
+import { IFormData } from "./interfaces/formDetailsInterface";
 
 const CreateDocument = () => {
   const {
@@ -23,7 +18,7 @@ const CreateDocument = () => {
 
   const { mutate, isLoading, isError, error } = useCreateDocument();
 
-  const onSubmit = (data: any) => {
+  const onSubmit = (data: IFormData) => {
     // Handle form submission here
     // Access the form values from the `data` object
 
