@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useCreateDocument } from "../../hooks/query/useCreateDocument";
+import Loading from "../Loading";
 
 const schema = yup.object().shape({
   author: yup.string().required("Author is required"),
@@ -31,9 +32,8 @@ const CreateDocument = () => {
   };
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
-
   if (isError) {
     const errorDetails: any = error;
     const errorMessage: string = errorDetails?.response?.data?.msg;

@@ -1,15 +1,16 @@
 import { useDocumentsData } from "../../hooks/query/useDocumentsData";
 import { useState } from "react";
 import Document from "../Document/index";
+import Loading from "../Loading";
 
 const Searchbox = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
-  const { data, error, isError, isLoading, refetch } =
+  const { data, error, isError, isLoading, refetch, isFetching } =
     useDocumentsData(searchQuery);
 
-  if (isLoading) {
-    return <div>Loading...</div>;
+  if (isLoading || isFetching) {
+    return <Loading />;
   }
 
   if (isError) {
@@ -20,6 +21,9 @@ const Searchbox = () => {
 
   function handleSubmit(e: any) {
     e.preventDefault();
+    if (!searchQuery) {
+      return;
+    }
     refetch();
   }
 
