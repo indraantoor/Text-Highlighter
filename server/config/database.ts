@@ -1,7 +1,8 @@
-import mongoose from "mongoose";
+import mongoose, { mongo } from "mongoose";
 import * as redis from "redis";
 import { promisify } from "util";
 import logger from "./logger";
+import DB from "../constants/DB";
 
 // Create a Redis client
 const redisClient = redis.createClient({
@@ -20,7 +21,7 @@ redisClient.on("error", (err) => {
 export const getAsync = promisify(redisClient.get).bind(redisClient);
 export const setAsync = promisify(redisClient.set).bind(redisClient);
 
-const mongoURI: string = "mongodb://0.0.0.0:27017/SmartDocs";
+const mongoURI = DB.MONGO_URI;
 
 export const connectDatabase = async (): Promise<void> => {
   try {

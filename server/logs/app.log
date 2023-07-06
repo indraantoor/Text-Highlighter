@@ -11,3 +11,20 @@
 {"level":"info","message":"Connected to MongoDB","timestamp":"2023-07-06T10:24:55.174Z"}
 {"level":"info","message":"[GET] /?query=bro","timestamp":"2023-07-06T10:26:06.481Z"}
 {"level":"info","message":"Serving from cache for keyword: bro","timestamp":"2023-07-06T10:26:06.489Z"}
+{"level":"info","message":"Server is running on port undefined","timestamp":"2023-07-06T10:33:18.103Z"}
+{"level":"info","message":"Redis DB Connected","timestamp":"2023-07-06T10:33:18.126Z"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2023-07-06T10:33:18.144Z"}
+{"level":"info","message":"Server is running on port 2303","timestamp":"2023-07-06T10:36:10.215Z"}
+{"level":"info","message":"Redis DB Connected","timestamp":"2023-07-06T10:36:10.234Z"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2023-07-06T10:36:10.251Z"}
+{"level":"info","message":"Server is running on port undefined","timestamp":"2023-07-06T10:42:30.953Z"}
+{"level":"info","message":"Redis DB Connected","timestamp":"2023-07-06T10:42:30.970Z"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2023-07-06T10:42:30.986Z"}
+{"level":"info","message":"Server is running on port undefined","timestamp":"2023-07-06T10:43:33.113Z"}
+{"level":"info","message":"Redis DB Connected","timestamp":"2023-07-06T10:43:33.132Z"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2023-07-06T10:43:33.148Z"}
+{"level":"info","message":"Server is running on port 2303","timestamp":"2023-07-06T10:44:05.797Z"}
+{"level":"info","message":"Redis DB Connected","timestamp":"2023-07-06T10:44:05.816Z"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2023-07-06T10:44:05.831Z"}
+{"level":"info","message":"[GET] /?query=indraan","timestamp":"2023-07-06T10:44:16.398Z"}
+{"level":"info","message":"Serving from database for keyword: indraan","timestamp":"2023-07-06T10:44:16.521Z"}

@@ -1,12 +1,14 @@
 import express, { Application } from "express";
-import mongoose from "mongoose";
 import documentRoutes from "./src/routes/documentRoutes";
 import { connectDatabase } from "./config/database";
 import cors from "cors";
 import logger from "./config/logger";
+import dotenv from "dotenv";
 
 const app: Application = express();
-const port: number = 2303;
+dotenv.config();
+
+const port = process.env.PORT;
 
 // Middleware
 app.use(express.json());
