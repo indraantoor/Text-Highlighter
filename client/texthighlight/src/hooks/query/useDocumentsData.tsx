@@ -2,7 +2,7 @@ import { useQuery } from "react-query";
 import axios from "axios";
 
 async function fetchDocuments(searchQuery: string) {
-  const { data } = await axios.get("http://localhost:2302", {
+  const { data } = await axios.get("http://localhost:2303", {
     params: {
       query: searchQuery,
     },

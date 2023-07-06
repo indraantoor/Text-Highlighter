@@ -1,6 +1,7 @@
 import express, { Request, Response, Router } from "express";
 import Document, { IDocument } from "../models/document";
 import { getAsync, setAsync } from "../../config/database";
+import logger from "../../config/logger";
 
 class DocumentController {
   public router: Router;
@@ -19,7 +20,7 @@ class DocumentController {
     // Check if the search results are already in the cache
     const cachedResults = await getAsync(keywords);
     if (cachedResults) {
-      console.log("Serving from cache...");
+      logger.info(`Serving from cache for keyword: ${keywords}`);
       return JSON.parse(cachedResults);
     }
 
@@ -34,7 +35,7 @@ class DocumentController {
     // Cache the search results for future use with a 5-minute expiration (adjust as needed)
     await setAsync(keywords, JSON.stringify(documents), "EX", 300);
 
-    console.log("Serving from database...");
+    logger.info(`Serving from database for keyword: ${keywords}`);
     return documents;
   };
 
@@ -52,8 +53,8 @@ class DocumentController {
       const savedDocument: IDocument = await newDocument.save();
 
       res.status(201).json(savedDocument);
-    } catch (error) {
-      console.error(error);
+    } catch (error: any) {
+      logger.error(error.stack);
       res.status(500).json({ error: "Server error" });
     }
   };
@@ -79,8 +80,8 @@ class DocumentController {
         data: documents,
         searchQuery: query,
       });
-    } catch (error) {
-      console.error(error);
+    } catch (error: any) {
+      logger.error(error.stack);
       res.status(500).json({ msg: "Server error" });
     }
   };
