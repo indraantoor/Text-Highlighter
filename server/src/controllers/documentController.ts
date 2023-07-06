@@ -1,5 +1,6 @@
 import express, { Request, Response, Router } from "express";
 import Document, { IDocument } from "../models/document";
+import { getAsync, setAsync } from "../../config/database";
 
 class DocumentController {
   public router: Router;
@@ -13,6 +14,29 @@ class DocumentController {
     this.router.post("/documents", this.addDocument);
     this.router.get("/documents", this.searchDocuments);
   }
+
+  private searchDocumentsWithCache = async (keywords: any) => {
+    // Check if the search results are already in the cache
+    const cachedResults = await getAsync(keywords);
+    if (cachedResults) {
+      console.log("Serving from cache...");
+      return JSON.parse(cachedResults);
+    }
+
+    // If not found in cache, perform the actual database search
+    const documents: IDocument[] = await Document.find({
+      $or: [
+        { name: { $regex: keywords, $options: "i" } },
+        { content: { $regex: keywords, $options: "i" } },
+      ],
+    });
+
+    // Cache the search results for future use with a 5-minute expiration (adjust as needed)
+    await setAsync(keywords, JSON.stringify(documents), "EX", 300);
+
+    console.log("Serving from database...");
+    return documents;
+  };
 
   public addDocument = async (req: Request, res: Response): Promise<void> => {
     try {
@@ -41,12 +65,7 @@ class DocumentController {
     try {
       const { query } = req.query;
 
-      const documents: IDocument[] = await Document.find({
-        $or: [
-          { name: { $regex: query, $options: "i" } },
-          { content: { $regex: query, $options: "i" } },
-        ],
-      });
+      const documents: IDocument[] = await this.searchDocumentsWithCache(query);
 
       if (!documents.length) {
         res
@@ -55,13 +74,11 @@ class DocumentController {
         return;
       }
 
-      res
-        .status(200)
-        .json({
-          msg: `${documents.length} Results found`,
-          data: documents,
-          searchQuery: query,
-        });
+      res.status(200).json({
+        msg: `${documents.length} Results found`,
+        data: documents,
+        searchQuery: query,
+      });
     } catch (error) {
       console.error(error);
       res.status(500).json({ msg: "Server error" });
